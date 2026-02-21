@@ -3,10 +3,10 @@ public class Tarea {
     private String descripcion;
     private boolean completada;
 
-    public Tarea(int id, String descripcion, boolean completada) {
+    public Tarea(int id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
-        this.completada = completada;
+        this.completada = false;
     }
 
     public int getId() {
@@ -35,6 +35,6 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return "[" + completada +"]" + id + descripcion;
-    }
+        String estado = completada ? "[X]" : "[ ]";
+        return estado + " " + id + " - " + descripcion;    }
 }
