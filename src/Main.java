@@ -1,4 +1,6 @@
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -6,7 +8,7 @@ public class Main {
 
         Scanner teclado = new Scanner(System.in);
 
-        ArrayList<Tarea> listaTareas = new ArrayList<>();
+        HashMap<Integer, Tarea> mapaTareas = new HashMap<>();
 
         int opcion = 0;
 
@@ -34,13 +36,13 @@ public class Main {
                     System.out.println("Escriba la descripcion de la tarea: ");
                     String descripcion = teclado.nextLine();
                     Tarea tarea = new Tarea(id, descripcion);
-                    listaTareas.add(tarea);
+                    mapaTareas.put(id, tarea);
 
                     break;
 
                 case 2:
 
-                    for (Tarea t :listaTareas){
+                    for (Tarea t : mapaTareas.values()){
                         System.out.println(t);
                     }
                     break;
@@ -48,14 +50,14 @@ public class Main {
                 case 3:
                     System.out.println("Ingrese la tarea que desea buscar por su ID:");
                     int tareaBuscar = teclado.nextInt();
+                    Tarea tareaEncontrada = mapaTareas.get(tareaBuscar);
 
-                    for (Tarea t : listaTareas){
-                        if (tareaBuscar == t.getId()){
-                            t.setCompletada(true);
-                        }
+                    if (tareaEncontrada != null){
+                        tareaEncontrada.setCompletada(true);
+                        System.out.println("Tarea completada!");
+                    }else {
+                        System.out.println("ERROR: No existe ninguna tarea con ese ID");
                     }
-
-
                     break;
 
             }
