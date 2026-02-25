@@ -8,7 +8,7 @@ public class Main {
 
         Scanner teclado = new Scanner(System.in);
 
-        HashMap<Integer, Tarea> mapaTareas = new HashMap<>();
+        TareaRepository repositorio = new TareaRepositoryEnMemoria();
 
         int opcion = 0;
 
@@ -36,13 +36,13 @@ public class Main {
                     System.out.println("Escriba la descripcion de la tarea: ");
                     String descripcion = teclado.nextLine();
                     Tarea tarea = new Tarea(id, descripcion);
-                    mapaTareas.put(id, tarea);
+                    repositorio.guardar(tarea);
 
                     break;
 
                 case 2:
 
-                    for (Tarea t : mapaTareas.values()){
+                    for (Tarea t : repositorio.obtenerTodas()){
                         System.out.println(t);
                     }
                     break;
@@ -50,10 +50,9 @@ public class Main {
                 case 3:
                     System.out.println("Ingrese la tarea que desea buscar por su ID:");
                     int tareaBuscar = teclado.nextInt();
-                    Tarea tareaEncontrada = mapaTareas.get(tareaBuscar);
+                    boolean exito = repositorio.completar(tareaBuscar);
 
-                    if (tareaEncontrada != null){
-                        tareaEncontrada.setCompletada(true);
+                    if (exito){
                         System.out.println("Tarea completada!");
                     }else {
                         System.out.println("ERROR: No existe ninguna tarea con ese ID");
